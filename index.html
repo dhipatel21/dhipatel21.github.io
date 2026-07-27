@@ -30,6 +30,7 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
+    overflow-x:hidden;
     background:
       linear-gradient(var(--bg-grid) 1px, transparent 1px),
       linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px),
@@ -79,7 +80,7 @@
 
   /* Hero */
   header.hero{
-    min-height:96vh; display:flex; flex-direction:column; justify-content:center;
+    min-height:78vh; display:flex; flex-direction:column; justify-content:center;
     padding-top:80px; position:relative;
   }
   .hero-kicker{
@@ -120,6 +121,21 @@
     opacity:0; animation:fadeUp .6s ease .32s forwards;
   }
   .hero-meta .item{ display:flex; align-items:center; gap:8px; color:var(--text-dim); }
+  .hero-grid{ display:flex; align-items:center; justify-content:space-between; gap:56px; }
+  .hero-content{ flex:1; min-width:0; }
+  .hero-photo{
+    flex-shrink:0; position:relative; width:200px; height:200px;
+    opacity:0; animation:fadeUp .6s ease .1s forwards;
+  }
+  .hero-photo::before{
+    content:''; position:absolute; inset:-10px; border:1px solid var(--accent-line);
+    border-radius:16px; z-index:0;
+  }
+  .hero-photo img{
+    position:relative; z-index:1; width:100%; height:100%; object-fit:cover;
+    object-position:center 30%; border-radius:12px; border:1px solid var(--border-strong);
+    background:var(--surface-alt);
+  }
   .pulse{
     width:8px; height:8px; border-radius:50%; background:#16a34a;
     box-shadow:0 0 0 0 rgba(22,163,74,0.5); animation:pulse 2s infinite; flex:none;
@@ -143,7 +159,8 @@
   /* About */
   .about-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:56px; align-items:start; }
   .about-text p{ color:var(--text-dim); margin-bottom:18px; font-size:1.04rem; }
-  .about-text strong{ color:var(--text); font-weight:600; }
+  .about-text strong{ color:inherit; font-weight:inherit; }
+  .about-text .about-aside{ padding-top:18px; border-top:1px solid var(--border); font-size:0.96rem; }
   .stat-card{
     background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:22px;
     margin-bottom:14px; transition:border-color .2s ease, box-shadow .2s ease;
@@ -225,6 +242,16 @@
     .exp-item{ grid-template-columns:1fr; gap:8px; }
     .edu-card{ grid-template-columns:1fr; }
     .edu-gpa{ text-align:left; }
+    .hero-grid{ flex-direction:column-reverse; gap:36px; text-align:center; }
+    .hero-content{ width:100%; }
+    .hero-actions{ justify-content:center; }
+    .hero-meta{ justify-content:center; }
+    .hero-sub{ max-width:none; }
+  }
+  @media (max-width:480px){
+    .hero-kicker{ white-space:normal; text-align:center; }
+    .hero-actions{ flex-direction:column; align-items:stretch; }
+    .btn{ justify-content:center; }
   }
 </style>
 </head>
@@ -245,19 +272,24 @@
 </nav>
 
 <header class="hero" id="top">
-  <div class="wrap">
-    <div class="hero-kicker">● SOFTWARE ENGINEER · SAN FRANCISCO, CA</div>
-    <h1 class="hero-title">Dhillon Patel</h1>
-    <p class="hero-sub">I'm a software engineer on Cisco Meraki's MX Routing team, working across <code>networking</code> and <code>agentic AI/ML tooling</code>.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#contact">Get in touch</a>
-      <a class="btn btn-secondary" href="#projects">View projects</a>
-      <a class="btn btn-secondary" href="https://github.com/dhipatel21" target="_blank" rel="noopener">GitHub ↗</a>
+  <div class="wrap hero-grid">
+    <div class="hero-content">
+      <div class="hero-kicker">● SOFTWARE ENGINEER · SAN FRANCISCO, CA</div>
+      <h1 class="hero-title">Dhillon Patel</h1>
+      <p class="hero-sub">I'm a software engineer on Cisco Meraki's MX Routing team, working across <code>networking</code> and <code>agentic AI/ML tooling</code>.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contact">Get in touch</a>
+        <a class="btn btn-secondary" href="#projects">View projects</a>
+        <a class="btn btn-secondary" href="https://github.com/dhipatel21" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+      <div class="hero-meta">
+        <div class="item"><span class="pulse"></span><span>Currently @ Cisco Meraki</span></div>
+        <div class="item">📍 San Francisco, CA</div>
+        <div class="item">🎓 University of Michigan '24</div>
+      </div>
     </div>
-    <div class="hero-meta">
-      <div class="item"><span class="pulse"></span><span>Currently @ Cisco Meraki</span></div>
-      <div class="item">📍 San Francisco, CA</div>
-      <div class="item">🎓 University of Michigan '24</div>
+    <div class="hero-photo">
+      <img src="static/assets/img/landing/profile_pic2.jpg" alt="Dhillon Patel">
     </div>
   </div>
 </header>
@@ -266,13 +298,14 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="section-num">01 · About</span>
-      <h2 class="section-title">A bit about how I work</h2>
+      <h2 class="section-title">A bit about me</h2>
     </div>
     <div class="about-grid">
       <div class="about-text reveal">
         <p>I'm a software engineer on the <strong>MX Routing team at Cisco Meraki</strong>, where I work on the networking stack that powers thousands of security appliances — from VPN NAT logic to ECMP and BGP-based dynamic routing. Lately I've been leading our team's AI initiative: architecting a <strong>multi-agent LLM workflow</strong> that takes a support ticket end-to-end to a merge request, using a graph-based approach to orchestrate planning, code generation, and review agents.</p>
         <p>Before that, I built embedded firmware at <strong>Nordson</strong>, configuring STM32 microcontrollers, JTAG, and Ethernet PHYs, and got my start at Meraki as a <strong>firmware intern</strong> overhauling test infrastructure with Jenkins, Gerrit, and Yocto.</p>
         <p>I graduated <strong>Summa Cum Laude</strong> from the University of Michigan with a B.S. in Computer Engineering, where my projects spanned computer vision, robotics, and embedded control systems.</p>
+        <p class="about-aside">In my free time I like to play basketball, tennis, and golf, snowboard, and watch football and <strong>F1</strong>. Lately I've been learning latte art on my new espresso machine.</p>
       </div>
       <div class="reveal">
         <div class="stat-card"><div class="stat-num">3+</div><div class="stat-label">Roles across networking, embedded &amp; AI</div></div>
