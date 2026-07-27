@@ -1,32 +1,53 @@
----
-layout: null
-title: 404
-permalink: /404.html
----
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 Error</title>
-    <!-- Mainly CSS -->
-    <link href="{{ "/static/assets/app-20210315.min.css" | prepend: site.baseurl }}" rel="stylesheet">
-    <link href="{{ "/static/css/custom.css" | prepend: site.baseurl }}" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Dhillon Patel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f9fafb;
+    --bg-grid:#eef1f5;
+    --text:#12161c;
+    --text-dim:#4c5563;
+    --accent:#0a66ff;
+    --accent-ink:#0347c9;
+    --border:#e2e6eb;
+    --mono:'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:24px;
+    background:
+      linear-gradient(var(--bg-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px),
+      var(--bg);
+    background-size:40px 40px;
+    font-family:var(--sans); color:var(--text);
+  }
+  .kicker{
+    font-family:var(--mono); font-size:0.8rem; letter-spacing:0.06em; color:var(--accent);
+    margin-bottom:18px;
+  }
+  h1{ font-size:clamp(3rem,10vw,5rem); font-weight:800; letter-spacing:-0.02em; line-height:1; }
+  p{ color:var(--text-dim); font-size:1.05rem; margin:16px 0 28px; max-width:420px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:8px;
+    background:var(--accent); color:#fff; text-decoration:none; font-weight:600; font-size:0.95rem;
+    border:1px solid var(--accent-ink); transition:background .15s ease;
+  }
+  .btn:hover{ background:var(--accent-ink); }
+</style>
 </head>
-<body class="gray-bg">
-    <div class="middle-box text-center animated fadeInDown">
-        <h1>404</h1>
-        <h3 class="font-bold">Page Not Found</h3>
-        <div class="error-desc">
-            <p>
-            Sorry, but the page you are looking for has not been found. Try checking the URL for error, then hit the refresh button on your browser or try found something else in my website.
-            </p>
-            <div>
-                <a class="btn btn-primary" href="{{ "/" | prepend: site.baseurl }}">Home</a>
-            </div>
-        </div>
-    </div>
-    <!-- Mainly scripts -->
-    <script src="{{"/static/assets/app-20210315.min.js"| prepend: site.baseurl }}"></script>
+<body>
+  <div class="kicker">● 404</div>
+  <h1>Page not found</h1>
+  <p>The page you're looking for doesn't exist or has moved.</p>
+  <a class="btn" href="/">Back home</a>
 </body>
 </html>
